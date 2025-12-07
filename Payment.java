@@ -20,12 +20,10 @@ public class Payment {
         System.out.println("2. Transfer Bank");
         System.out.println("3. Cash");
 
-
             // Nested While Loop
             System.out.print("Select Payment Method : "); 
                 if(sc.hasNextInt()){
                     int selectPay = sc.nextInt();
-
                     switch (selectPay) {
                         case 1: 
                         methodUsed = "QRIS";
@@ -38,10 +36,7 @@ public class Payment {
                         break;
                         default:
                         System.out.println();;
-                        break;
-
-                    
-            
+                        break;            
                     }
                     System.out.println();
                     printReceipt();
@@ -52,32 +47,33 @@ public class Payment {
                 }
                 }
 
-            
-        static void printReceipt(){
-            int grandTotal = 0;
-                    System.out.println("===== RECEIPT =====");
-                    System.out.println("Order Number : " + orderCounter++);
-
-                    // array list - queue
-                    if (menuCust.orderQueue.isEmpty()){
-                        System.out.println("No orders in cart!");
-                    }
-
-                    int Subtotal = 0;
-                    System.out.println("Ordered Item : " );
-                   
-                        for(String order : menuCust.orderQueue) {
-                        System.out.println(order);
-        // Extract subtotal dari string atau langsung ambil menuCust.getSubtotal()
-                        grandTotal += menuCust.getSubtotal() * menuCust.orderQueue.size();
-    }
-                    
-            
-                    System.out.println("Method : " + methodUsed);
-                    System.out.println("Status : Paid");
-                    System.out.println("=== THANK YOU FOR ORDERING ===");
-
-                    
-                 }
-                
-                }
+        static void printReceipt() {
+        System.out.println("\n========== RECEIPT ==========");
+        System.out.println("Order Number: #" + orderCounter++);
+    
+        int grandSubtotal = 0;
+        System.out.println("\n--- ORDERED ITEMS ---");
+    
+    // LOOP: Hitung subtotal dari semua item
+        for(String order : menuCust.orderQueue) {
+            System.out.println(order);
+            grandSubtotal += menuCust.getSubtotal();  // Akumulasi semua subtotal
+        }
+    
+    //  11% TAX CALCULATION
+        double tax11Percent = grandSubtotal * 0.11;
+        double grandTotal = grandSubtotal + tax11Percent;
+    
+    System.out.println("\n--- BILLING ---");
+    System.out.printf("Subtotal: $%,d\n", grandSubtotal);
+    System.out.printf("Tax (11%%): $%.2f\n", tax11Percent);    // with tax
+    System.out.printf("\n TOTAL: $%.2f\n", grandTotal);      
+    System.out.println("Payment Method: " + methodUsed);
+    System.out.println("Status: PAID ");
+    System.out.println("===========================\n");
+    
+    // Clear setelah bayar
+    menuCust.orderQueue.clear();
+    menuCust.orderStack.clear();
+}
+}    }
