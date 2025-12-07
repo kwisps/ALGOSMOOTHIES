@@ -3,15 +3,26 @@ import java.util.*;
 
 public class menuCust {
 
-// buat dapetin nama fruit nya untuk di receipt
-private static String orderedFruit = "";
-     
+// buat dapetin nama" ITEM nya untuk di receipt
+
+private static String orderedFruit = "", selectedSize = "", selectedSugar = "", selectedTopping = "", selectedBase = "", selectedIce = "";
+
 public static String getOrderedFruit(){
         return orderedFruit;
 }
-public static void setOrderedFruit(String fruit){
-        menuCust.orderedFruit = fruit;
-}
+public static String getSelectedSize() { return selectedSize; }
+public static String getSelectedSugar() { return selectedSugar; }
+public static String getSelectedTopping() { return selectedTopping; }
+public static String getSelectedBase() { return selectedBase; }
+public static String getSelectedIce() { return selectedIce; }
+
+public static void setOrderedFruit(String fruit){ menuCust.orderedFruit = fruit; }
+public static void setSelectedSize(String size) { selectedSize = size; }
+public static void setSelectedSugar(String sugar) { selectedSugar = sugar; }
+public static void setSelectedTopping(String topping) { selectedTopping = topping; }
+public static void setSelectedBase(String base) { selectedBase = base; }
+public static void setSelectedIce(String ice) { selectedIce = ice; }
+
 
 // kalkukasi semua harga (FRUIT, SIZE, TOPPING, BASE DAN SUBTOTAL)
 private static int fruitPrice = 0, sizePrice = 0, toppingPrice = 0, 
@@ -130,9 +141,11 @@ public static void setBasePrice(int price) {
 
         System.out.println("You chose : " + getSize(drinkSize));
         if(drinkSize == 1){
-            setSizePrice(0);    // Regular = 0
+            setSizePrice(0); 
+            setSelectedSize("Regular");
         } else {
-        setSizePrice(3);    // Large = 3
+        setSizePrice(3);
+        setSelectedSize("Large");    
         }
         System.out.println();
         chooseSugarlevel();
@@ -150,6 +163,7 @@ public static void setBasePrice(int price) {
         int sugar = sc.nextInt();
 
         System.out.println("You chose : " + getSugar(sugar));
+        setSelectedSugar(getSugar(sugar));
         System.out.println();
         chooseTopping();
 
@@ -168,14 +182,18 @@ public static void setBasePrice(int price) {
         System.out.println("You chose : " + getTopping(topping));
 
         switch (topping) {
-            case 1: setToppingPrice(2); 
-            break;  // Chia = 2
-            case 2: setToppingPrice(3); 
-            break;  // Whip = 3
+            case 1: setToppingPrice(2);
+            setSelectedTopping("Chia Seed");
+            break;  
+            case 2: setToppingPrice(3);
+            setSelectedTopping("Whip Cream"); 
+            break;  
             case 3: setToppingPrice(4); 
-            break;  // Jelly = 4
+            setSelectedTopping("Jelly");
+            break;  
             default: setToppingPrice(0); 
-            break; // No topping = 0
+            setSelectedTopping("No Topping");
+            break; 
     }
         System.out.println();
         chooseBase();
@@ -198,12 +216,16 @@ public static void setBasePrice(int price) {
         switch (baseMilk) {
         // nyimpen harga base
         case 1: setBasePrice(2); 
+        setSelectedBase("Full Cream");
         break;
         case 2: setBasePrice(3); 
+        setSelectedBase("Low Fat Milk");
         break;
         default: setBasePrice(5); 
+
         break; // Oat/Almond/Yogurt = 5
         case 6: setBasePrice(0); 
+        setSelectedBase(getBase(baseMilk));  
         break;
     }
         System.out.println();
@@ -219,28 +241,37 @@ public static void setBasePrice(int price) {
     System.out.print("Choose ice level: ");
     int iceLevel = sc.nextInt();
     System.out.println("You Chose : " + getIce(iceLevel));
+    setSelectedIce(getIce(iceLevel));
+    System.out.println();
 
+    hitung();
+    }
+    static void hitung(){
+    Scanner sc = new Scanner(System.in);
     // HITUNG SUBTOTAL
     subtotal = fruitPrice + sizePrice + toppingPrice + basePrice;
     
     // STRING ORDER SEDERHANA (tanpa nomor urut)
-    String order = getOrderedFruit() + " SMOOTHIE ($" + 
-                   fruitPrice + " +$" + sizePrice + " +$" + toppingPrice + 
-                   " +$" + basePrice + " = $" + subtotal + ")";
+    String order = getOrderedFruit() + " Smoothie\n" +
+               "Size: " + selectedSize + " | Topping: " + selectedTopping + "\n" +
+               "Base: " + selectedBase + " | Sugar: " + selectedSugar + "\n" +
+               "Ice: " + selectedIce + "\n" +
+               "($"+fruitPrice+" +$"+sizePrice+" +$"+toppingPrice+" +$"+basePrice+" = $"+subtotal+")\n";
+               
     
     // ADD KE QUEUE & STACK
     orderQueue.add(order);
     orderStack.push(order);
 
     // ORDER SUMMARY
-    System.out.println("\n=== ORDER SUMMARY === "); 
-    System.out.println("You Ordered " + getOrderedFruit() + " : $" + fruitPrice);
-    System.out.println("Cup Size: $" + sizePrice);
-    System.out.println("Topping: $" + toppingPrice);
-    System.out.println("Base: $" + basePrice);
-    System.out.println("SUBTOTAL: $" + subtotal);
-    System.out.println("Cart Size : " + orderQueue.size());
-    System.out.println("==================");
+    System.out.println("\n----- ORDER SUMMARY ----- "); 
+System.out.println("You Ordered: " + getOrderedFruit());
+System.out.println("  Size: " + selectedSize + " ($" + sizePrice + ")");
+System.out.println("  Topping: " + selectedTopping + " ($" + toppingPrice + ")");
+System.out.println("  Base: " + selectedBase + " ($" + basePrice + ")");
+System.out.println("  Subtotal: $" + subtotal);
+System.out.println("Item added to cart! (" + orderQueue.size() + " items)");
+System.out.println("-------------------------");
     System.out.println("1. Order Again");
     System.out.println("2. Payment");
     System.out.print("Choose: ");
@@ -252,6 +283,7 @@ public static void setBasePrice(int price) {
     } else {
         Payment.payment();
     }
+    sc.close();
 }
     
     
