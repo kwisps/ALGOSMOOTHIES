@@ -8,6 +8,7 @@ public class Main {
         System.out.println("ROLES ");
         System.out.println("1. OWNER");
         System.out.println("2. CUSTOMER");
+        System.out.println("0. EXIT APP");
         System.out.print("Choose your role : ");
         int role = scanner.nextInt();
 
@@ -17,6 +18,9 @@ public class Main {
         } else if (role == 2){
             homepageCust();
 
+        } else if(role == 0){
+            System.out.println("Exiting...");
+            System.out.println("Thank you for visiting ALGOSMOOTHIES");
         }
     }
     static void homepageOwner(){
@@ -24,6 +28,7 @@ public class Main {
         System.out.println("---- WELCOME OWNER ----");
         System.out.println("1. Cek History Pesanan");
         System.out.println("2. Search Fruit Stok");
+        System.out.println("3. Keseluruhan Stok (real-time) ");
         System.out.println("0. Log out");
         System.out.print("Choose with number : ");
 
@@ -33,7 +38,10 @@ public class Main {
             Owner.cekHistory();
         } else if (choice == 2){
             Owner.searchFruitSimple();
-        } else if (choice == 0){
+        } else if (choice == 3){
+            Owner.cekStokBahan();
+        }
+        else if (choice == 0){
             Main.main(null);
         }
     }
