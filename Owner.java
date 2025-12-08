@@ -1,6 +1,5 @@
 package algosmoothie;
 
-import algosmoothie1.Menu;
 import java.util.Scanner;
 
 public class Owner {
@@ -44,3 +43,4 @@ public class Owner {
     Main.homepageOwner();
 }
 }
+
