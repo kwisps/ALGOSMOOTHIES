@@ -23,7 +23,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("---- WELCOME OWNER ----");
         System.out.println("1. Cek History Pesanan");
-        System.out.println("2. Cek Stok bahan");
+        System.out.println("2. Search Fruit Stok");
         System.out.println("0. Log out");
         System.out.print("Choose with number : ");
 
@@ -32,7 +32,7 @@ public class Main {
         if(choice == 1){
             Owner.cekHistory();
         } else if (choice == 2){
-            Owner.cekStokBahan();
+            Owner.searchFruitSimple();
         } else if (choice == 0){
             Main.main(null);
         }
