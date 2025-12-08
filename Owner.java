@@ -60,6 +60,37 @@ public class Owner {
         }
     }
 }
+    static void tambahStok() {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("=== TAMBAH STOK BAHAN ===");
     
+    // Tampilkan stok saat ini dulu
+    System.out.println("\nStok saat ini:");
+    for (int i = 0; i < menuCust.inventory.length; i++) {
+        System.out.printf("%d. %s: %d\n", i+1, menuCust.inventory[i].name, menuCust.inventory[i].stock);
+    }
+    
+    System.out.print("\nPilih nomor bahan (1-" + menuCust.inventory.length + "): ");
+    int pilihan = sc.nextInt() - 1;  // Index 0-based
+    
+    if (pilihan >= 0 && pilihan < menuCust.inventory.length) {
+        System.out.print("Jumlah tambah stok: ");
+        int tambah = sc.nextInt();
+        
+        // UPDATE STOK YANG DI ADD
+        menuCust.inventory[pilihan].stock += tambah;
+        
+        System.out.printf("Stok %s bertambah %d → Total: %d\n", 
+        menuCust.inventory[pilihan].name, tambah, 
+        menuCust.inventory[pilihan].stock);
+    } else {
+        System.out.println("Pilihan tidak valid!");
+    }
+    
+    System.out.println("Press Enter to go back to homepage...");
+    sc.nextLine(); 
+    Main.homepageOwner();
+}
 
 }
+
