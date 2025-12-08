@@ -58,6 +58,7 @@ public class Payment {
     
     // LOOP: Hitung subtotal dari semua item
         for(String order : menuCust.orderQueue) {
+            System.out.println();
             System.out.println(order);
             grandSubtotal += menuCust.getSubtotal();  // Akumulasi semua subtotal
         }
