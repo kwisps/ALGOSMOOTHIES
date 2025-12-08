@@ -14,20 +14,20 @@ public class Owner {
     } else {
         System.out.println("\nSemua pesanan :");
         int index = 1;
-        // Tampilkan TERBARU dulu dari history permanen
+        
         for (int i = menuCust.orderHistory.size() - 1; i >= 0; i--) {
-            System.out.println(index++ + ". " + menuCust.orderHistory.get(i));
-            System.out.println();
-
-            System.out.println();
-            System.out.println("Press Enter to go back to homepage");
-            String enter = sc.nextLine();
-            Main.homepageOwner();
-
+                System.out.println(index++ + ". " + menuCust.orderHistory.get(i));
+                System.out.println();  // Spasi
+            }
         }
-
+        
+        System.out.println("Press Enter to go back to homepage...");
+        sc.nextLine();
+        Main.homepageOwner();
     }
-}
+
+        
+
     
     static void cekStokBahan() { 
         Scanner sc =  new Scanner(System.in);
@@ -43,4 +43,3 @@ public class Owner {
     Main.homepageOwner();
 }
 }
-
