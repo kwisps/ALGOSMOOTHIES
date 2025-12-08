@@ -47,6 +47,7 @@ public static void setBasePrice(int price) {
     // QUEUE & STACK
     public static ArrayList<String> orderQueue = new ArrayList<>();
     public static Stack<String> orderStack = new Stack<>();
+    public static ArrayList<String> orderHistory = new ArrayList<>();
 
     static class Fruit {
         int id; String name; int price;
@@ -64,7 +65,34 @@ public static void setBasePrice(int price) {
         new Fruit(4, "Blueberry", 15),
         new Fruit(5, "Watermelon", 15)
         };
+public static class Inventory {
+    String name;
+    int stock;
+    Inventory(String name, int stock) {
+        this.name = name;
+        this.stock = stock;
+    }
+}
+public static Inventory[] inventory = {
+    new Inventory("Mango", 50),
+    new Inventory("Strawberry", 30),
+    new Inventory("Banana", 40),
+    new Inventory("Blueberry", 20),
+    new Inventory("Watermelon", 25)
+};
 
+// Kurangi stok saat order (panggil di hitung())
+ static void updateStock(int fruitId) {
+    for (Inventory inv : inventory) {
+        if (getFruitName(fruitId).equals(inv.name)) {
+            inv.stock--;
+            if (inv.stock < 5) {
+                System.out.println("Low stock: " + inv.name + " (" + inv.stock + ")");
+            }
+            break;
+        }
+    }
+}
  private static int currentFruitId = 0;
     public static int getCurrentFruitId() { 
         return currentFruitId; 
@@ -77,13 +105,7 @@ public static void setBasePrice(int price) {
     Scanner sc = new Scanner(System.in);
         System.out.println("--------------- MENU -------------");
         System.out.printf("%-10s %-15s %8s\n", "Code", "Fruit", "Price");
-        
-        /*System.out.printf("%-10s %10s\n", "1. Mango" , "10$");
-        System.out.printf("%-10s %7s\n", "2. Strawberry" , "10$");
-        System.out.printf("%-10s %10s\n", "3. Banana" , "12$"); 
-        System.out.printf("%-10s %8s\n", "4. Blueberry" , "15$");
-        System.out.printf("%-10s %7s\n", "5. Watermelon" , "15$");
-        System.out.println();*/
+
         for(Fruit f : fruits){
             System.out.printf("%-8d %-15s %6d$\n", f.id, f.name, f.price);
         }
@@ -256,20 +278,22 @@ public static void setBasePrice(int price) {
                "Size: " + selectedSize + " | Topping: " + selectedTopping + "\n" +
                "Base: " + selectedBase + " | Sugar: " + selectedSugar + "\n" +
                "Ice: " + selectedIce + "\n" +
-               "($"+fruitPrice+" +$"+sizePrice+" +$"+toppingPrice+" +$"+basePrice+" = $"+subtotal+")\n";
+               "($"+fruitPrice+" +$"+sizePrice+" +$"+toppingPrice+" +$"+basePrice+" = $"+subtotal+")";
                
     
     // ADD KE QUEUE & STACK
+    updateStock(getCurrentFruitId());
     orderQueue.add(order);
+    orderHistory.add(order);
     orderStack.push(order);
 
     // ORDER SUMMARY
     System.out.println("\n----- ORDER SUMMARY ----- "); 
 System.out.println("You Ordered: " + getOrderedFruit());
-System.out.println("  Size: " + selectedSize + " ($" + sizePrice + ")");
-System.out.println("  Topping: " + selectedTopping + " ($" + toppingPrice + ")");
-System.out.println("  Base: " + selectedBase + " ($" + basePrice + ")");
-System.out.println("  Subtotal: $" + subtotal);
+System.out.println(" Size: " + selectedSize + " ($" + sizePrice + ")");
+System.out.println(" Topping: " + selectedTopping + " ($" + toppingPrice + ")");
+System.out.println(" Base: " + selectedBase + " ($" + basePrice + ")");
+System.out.println(" Subtotal: $" + subtotal);
 System.out.println("Item added to cart! (" + orderQueue.size() + " items)");
 System.out.println("-------------------------");
     System.out.println("1. Order Again");
