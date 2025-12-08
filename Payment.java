@@ -45,9 +45,11 @@ public class Payment {
                     System.out.println("INPUT NUMBER");
                     payment();
                 }
+                sc.close();
                 }
 
         static void printReceipt() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("\n========== RECEIPT ==========");
         System.out.println("Order Number: #" + orderCounter++);
     
@@ -66,14 +68,18 @@ public class Payment {
     
     System.out.println("\n--- BILLING ---");
     System.out.printf("Subtotal: $%,d\n", grandSubtotal);
-    System.out.printf("Tax (11%%): $%.2f\n", tax11Percent);    // with tax
+    System.out.printf("Tax (11%%): $%.2f\n", tax11Percent);    
     System.out.printf("\n TOTAL: $%.2f\n", grandTotal);      
     System.out.println("Payment Method: " + methodUsed);
     System.out.println("Status: PAID ");
     System.out.println("===========================\n");
     
-    // Clear setelah bayar
-    menuCust.orderQueue.clear();
-    menuCust.orderStack.clear();
+    
+    System.out.println("Press Enter to Exit");
+    String enter = sc.nextLine();
+
+    Main.main(null);
+
+    sc.close();
 }
-}    }
+}
