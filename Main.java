@@ -29,6 +29,7 @@ public class Main {
         System.out.println("1. Cek History Pesanan");
         System.out.println("2. Search Fruit Stok");
         System.out.println("3. Keseluruhan Stok (real-time) ");
+        System.out.println("4. Tambah Stok Bahan");
         System.out.println("0. Log out");
         System.out.print("Choose with number : ");
 
@@ -40,6 +41,8 @@ public class Main {
             Owner.searchFruitSimple();
         } else if (choice == 3){
             Owner.cekStokBahan();
+        } else if (choice==4){
+            Owner.tambahStok();
         }
         else if (choice == 0){
             Main.main(null);
