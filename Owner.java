@@ -42,4 +42,24 @@ public class Owner {
     String enter = sc.nextLine();
     Main.homepageOwner();
 }
+
+    static void searchFruitSimple() {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Cari fruit: ");
+    String target = sc.nextLine().toLowerCase();
+    
+    // SEQUENTIAL SEARCH 
+    for (int i = 0; i < menuCust.inventory.length; i++) {
+        if (menuCust.inventory[i].name.equalsIgnoreCase(target)) { 
+            System.out.printf(" %s: %d stok\n", 
+            menuCust.inventory[i].name, 
+            menuCust.inventory[i].stock);
+            sc.nextLine();
+            Main.homepageOwner();
+            return;
+        }
+    }
+}
+    
+
 }
